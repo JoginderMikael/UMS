@@ -57,6 +57,7 @@ The system is containerized using Docker Compose with the following components:
 
 ### Default Credentials
 
+- **Super Admin User**: super@admin.uni / SuperAdmin@Uni
 - **Admin User**: admin@university.com / Admin123!
 - **Database**: postgres://uniuser:unipass@localhost:5432/unidata
 
