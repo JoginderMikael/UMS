@@ -1,0 +1,59 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: ums-postgres
+    environment:
+      POSTGRES_DB: unidata
+      POSTGRES_USER: uniuser
+      POSTGRES_PASSWORD: unipass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U uniuser -d unidata"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: ums-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./Backend
+    container_name: ums-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/unidata
+      SPRING_DATASOURCE_USERNAME: uniuser
+      SPRING_DATASOURCE_PASSWORD: unipass
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    ports:
+      - "8081:8081"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./Frontend
+    container_name: ums-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
