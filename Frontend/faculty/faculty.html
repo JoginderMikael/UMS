@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Portal | Aura Heights University</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="faculty.css">
+</head>
+<body>
+    <header class="topbar">
+        <button type="button" class="menu-toggle js-menu-toggle" aria-label="Open faculty menu" aria-expanded="false" aria-controls="faculty-sidebar"><i class="fas fa-bars"></i> Menu</button>
+        <div class="brand js-faculty-home" role="button" tabindex="0" aria-label="Open faculty home">
+            <span class="brand-mark">AHU</span>
+            <div>
+                <h1>Faculty Portal</h1>
+                <p>Manage grading workflows and student results</p>
+            </div>
+        </div>
+        <nav class="topnav">
+            <a href="/index.html"><i class="fas fa-home"></i> Home</a>
+            <a class="js-active-user" href=""><i class="fas fa-chalkboard-user"></i> Faculty</a>
+            <a href="/index.html" class="js-logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </nav>
+    </header>
+    <div class="menu-backdrop js-menu-backdrop" aria-hidden="true"></div>
+
+    <main class="page">
+        <section class="hero" id="faculty-summary">
+            <div class="hero-dashboard-copy">
+                <h2><i class="fas fa-chart-bar"></i> Faculty Summary</h2>
+                <p class="form-message">Use Results and Grading for marks workflows. See Faculty Functions Roadmap below to guide backend implementation.</p>
+            </div>
+            <div class="wallet">
+                <h3><i class="fas fa-presentation"></i> Teaching Snapshot</h3>
+                <p class="amount">1 Core Tab</p>
+                <span><i class="fas fa-info-circle"></i> Results and grading are combined as one workflow.</span>
+            </div>
+        </section>
+
+        <div class="layout">
+            <aside class="sidebar" id="faculty-sidebar">
+                <section class="panel">
+                    <h2><i class="fas fa-cogs"></i> Faculty Services</h2>
+                    <nav class="student-menu" aria-label="Faculty services">
+                        <a href="#faculty-results-grading" class="student-menu-link"><i class="fas fa-chart-line"></i> Results and Grading</a>
+                    </nav>
+                </section>
+            </aside>
+
+            <div class="content">
+                <section class="panel" id="faculty-functions-catalog">
+                    <h2><i class="fas fa-road"></i> Faculty Functions Roadmap</h2>
+                    <p class="form-message">Suggested operations for Lecturers, HODs, and Deans, with how the system should support each.</p>
+                    <div class="student-summary-grid">
+                        <article class="student-summary-card">
+                            <h3><i class="fas fa-list-check"></i> Lecturer: Course Roster</h3>
+                            <p class="form-message">View assigned units, student list, and registration status per class.</p>
+                            <p class="faculty-function-meta"><i class="fas fa-cogs"></i> System support: class list APIs, enrollment snapshots, add/drop history.</p>
+                        </article>
+                        <article class="student-summary-card">
+                            <h3><i class="fas fa-edit"></i> Lecturer: Continuous Assessment</h3>
+                            <p class="form-message">Create CATs/assignments and record marks with version history.</p>
+                            <p class="faculty-function-meta"><i class="fas fa-cogs"></i> System support: assessment schema, draft/final states, audit trail.</p>
+                        </article>
+                        <article class="student-summary-card">
+                            <h3><i class="fas fa-pencil-alt"></i> Lecturer: Final Exam Grading</h3>
+                            <p class="form-message">Capture final exam marks, compute totals, and apply grading scale.</p>
+                            <p class="faculty-function-meta"><i class="fas fa-cogs"></i> System support: grading rules, moderation flagging, recalculation endpoints.</p>
+                        </article>
+                        <article class="student-summary-card">
+                            <h3><i class="fas fa-clipboard-check"></i> Lecturer: Attendance Tracking</h3>
+                            <p class="form-message">Mark attendance by session and identify at-risk students.</p>
+                            <p class="faculty-function-meta"><i class="fas fa-cogs"></i> System support: session records, percentage summaries, alerts.</p>
+                        </article>
+                        <article class="student-summary-card">
+                            <h3><i class="fas fa-upload"></i> Lecturer: Result Submission</h3>
+                            <p class="form-message">Submit finalized marks to department for approval.</p>
+                            <p class="faculty-function-meta"><i class="fas fa-cogs"></i> System support: submit/recall cycle, digital sign-off, deadlines.</p>
+                        </article>
+                        <article class="student-summary-card">
+                            <h3><i class="fas fa-check-square"></i> HOD: Department Approval</h3>
+                            <p class="form-message">Review course results, return for correction, or approve for dean review.</p>
+                            <p class="faculty-function-meta"><i class="fas fa-cogs"></i> System support: workflow states, remarks, approval timestamps.</p>
+                        </article>
+                        <article class="student-summary-card">
+                            <h3><i class="fas fa-chart-pie"></i> HOD: Workload Oversight</h3>
+                            <p class="form-message">Track staff teaching loads and course coverage each semester.</p>
+                            <p class="faculty-function-meta"><i class="fas fa-cogs"></i> System support: assignment matrix, conflict checks, workload reports.</p>
+                        </article>
+                        <article class="student-summary-card">
+                            <h3><i class="fas fa-binoculars"></i> Dean: School-Level Moderation</h3>
+                            <p class="form-message">Monitor performance trends and ensure grading compliance across departments.</p>
+                            <p class="faculty-function-meta"><i class="fas fa-cogs"></i> System support: cross-department analytics, grade distribution dashboards.</p>
+                        </article>
+                        <article class="student-summary-card">
+                            <h3><i class="fas fa-bullhorn"></i> Dean: Publish Approved Results</h3>
+                            <p class="form-message">Authorize release of approved results to students.</p>
+                            <p class="faculty-function-meta"><i class="fas fa-cogs"></i> System support: publication window, freeze policy, notification trigger.</p>
+                        </article>
+                    </div>
+                </section>
+                <section class="panel" id="faculty-results-grading-page">
+                    <h2><i class="fas fa-file-alt"></i> Results and Grading</h2>
+                    <p class="form-message">Use filters to narrow courses, search student by admission number, then submit marks.</p>
+                    <div class="faculty-grading-grid">
+                        <form class="student-summary-card faculty-grading-form js-faculty-grade-form">
+                            <h3><i class="fas fa-keyboard"></i> Grade Entry</h3>
+                            <label for="faculty-scope-type"><i class="fas fa-filter"></i> Course Scope</label>
+                            <select id="faculty-scope-type" class="js-faculty-scope-type">
+                                <option value="school">By School</option>
+                                <option value="department">By Department</option>
+                                <option value="program">By Program</option>
+                                <option value="all">All University Courses</option>
+                            </select>
+
+                            <label for="faculty-school-select"><i class="fas fa-building"></i> School</label>
+                            <select id="faculty-school-select" class="js-faculty-school-select"></select>
+
+                            <label for="faculty-department-select"><i class="fas fa-sitemap"></i> Department</label>
+                            <select id="faculty-department-select" class="js-faculty-department-select" disabled></select>
+
+                            <label for="faculty-program-select"><i class="fas fa-graduation-cap"></i> Program</label>
+                            <select id="faculty-program-select" class="js-faculty-program-select" disabled></select>
+
+                            <label for="faculty-course-select"><i class="fas fa-book"></i> Course</label>
+                            <select id="faculty-course-select" class="js-faculty-course-select" required></select>
+
+                            <label for="faculty-academic-year-select"><i class="fas fa-calendar"></i> Academic Year</label>
+                            <select id="faculty-academic-year-select" class="js-faculty-academic-year-select" required></select>
+
+                            <label for="faculty-semester-select"><i class="fas fa-calendar-alt"></i> Semester</label>
+                            <select id="faculty-semester-select" class="js-faculty-semester-select" required></select>
+
+                            <label for="faculty-marks-input"><i class="fas fa-percent"></i> Marks</label>
+                            <input id="faculty-marks-input" class="js-faculty-marks-input" type="number" min="0" max="100" step="0.01" required placeholder="0 - 100">
+
+                            <p class="form-message" id="faculty-grading-message" role="status" aria-live="polite"></p>
+                            <button type="submit" class="js-faculty-submit-grade-btn"><i class="fas fa-paper-plane"></i> Submit Grade</button>
+                        </form>
+
+                        <section class="student-summary-card faculty-student-search-card">
+                            <h3><i class="fas fa-search"></i> Student Search</h3>
+                            <p class="form-message">Search by admission/registration number.</p>
+                            <div class="users-search">
+                                <input type="text" class="js-faculty-student-search-input" placeholder="e.g. SCT211-0123/2022">
+                                <button type="button" class="js-faculty-student-search-btn"><i class="fas fa-magnifying-glass"></i> Find Student</button>
+                            </div>
+                            <div class="student-summary-list js-faculty-student-result">
+                                <div class="faculty-student-cards">
+                                    <article class="student-summary-card">
+                                        <h4><i class="fas fa-user"></i> Student</h4>
+                                        <p>None selected</p>
+                                    </article>
+                                    <article class="student-summary-card">
+                                        <h4><i class="fas fa-id-card"></i> Admission Number</h4>
+                                        <p>N/A</p>
+                                    </article>
+                                    <article class="student-summary-card">
+                                        <h4><i class="fas fa-book-open"></i> Program</h4>
+                                        <p>N/A</p>
+                                    </article>
+                                    <article class="student-summary-card">
+                                        <h4><i class="fas fa-clipboard-check"></i> Exam Status (Selected Course)</h4>
+                                        <span class="fee-status-badge">Select a course to view exam status.</span>
+                                    </article>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="student-summary-grid">
+                        <article class="student-summary-card">
+                            <h3><i class="fas fa-code"></i> Backend Contract</h3>
+                            <p class="form-message">PUT <code>/api/v1/results/grade</code> with <code>studentId</code>, <code>courseId</code>, <code>semesterId</code>, and <code>marks</code>.</p>
+                        </article>
+                        <article class="student-summary-card">
+                            <h3><i class="fas fa-check-circle"></i> Expected Validation</h3>
+                            <p class="form-message">Require student, course, semester, and marks within valid range.</p>
+                        </article>
+                        <article class="student-summary-card">
+                            <h3><i class="fas fa-sticky-note"></i> Operational Note</h3>
+                            <p class="form-message">Grades may lock after input; allow review before submit.</p>
+                        </article>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p><i class="fas fa-info-circle"></i> Need help? Reach the Exams office or your department administrator.</p>
+    </footer>
+
+    <script type="module" src="faculty.js"></script>
+</body>
+</html>

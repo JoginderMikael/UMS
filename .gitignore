@@ -1,1 +1,15 @@
 ERRORLOG.txt
+
+# Unified backend workspace
+Backend/target/
+Backend/.idea/
+Backend/.vscode/
+Backend/.mvn/wrapper/maven-wrapper.jar
+Backend/HELP.md
+
+# Unified frontend workspace
+Frontend/node_modules/
+Frontend/docs/
+Frontend/coverage/
+Frontend/.nyc_output/
+Frontend/.vscode/

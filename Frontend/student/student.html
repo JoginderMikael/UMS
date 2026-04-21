@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal | Aura Heights University</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="student.css">
+</head>
+<body>
+    <header class="topbar">
+        <button type="button" class="menu-toggle js-menu-toggle" aria-label="Open student menu" aria-expanded="false" aria-controls="student-sidebar"><i class="fas fa-bars"></i> Menu</button>
+        <div class="brand js-student-home" role="button" tabindex="0" aria-label="Open student home">
+            <span class="brand-mark">AHU</span>
+            <div>
+                <h1>Student Portal</h1>
+                <p>Manage courses, fees, and academic records</p>
+            </div>
+        </div>
+        <nav class="topnav">
+            <a href="/index.html"><i class="fas fa-home"></i> Home</a>
+            <a class="js-active-user" href=""><i class="fas fa-user-graduate"></i> Student</a>
+            <a href="/index.html" class="js-logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </nav>
+    </header>
+    <div class="menu-backdrop js-menu-backdrop" aria-hidden="true"></div>
+
+    <main class="page">
+        <section class="hero" id="student-summary">
+            <div class="hero-dashboard-copy js-student-hero-summary">
+                <h2><i class="fas fa-chart-line"></i> Student Summary</h2>
+                <p class="form-message js-student-dashboard-message">Loading student summary...</p>
+            </div>
+            <div class="wallet" id="pay-fees">
+                <h3><i class="fas fa-wallet"></i> Fee Balance</h3>
+                <p class="amount">KES 0</p>
+                <span><i class="fas fa-calendar-alt"></i> Semester: N/A</span>
+            </div>
+        </section>
+
+        <div class="layout">
+            <aside class="sidebar" id="student-sidebar">
+                <section class="panel">
+                    <h2><i class="fas fa-cogs"></i> Student Services</h2>
+                    <nav class="student-menu" aria-label="Student services">
+                        <a href="#register-courses" class="student-menu-link"><i class="fas fa-book"></i> Register Courses</a>
+                        <a href="#pay-fees" class="student-menu-link"><i class="fas fa-dollar-sign"></i> Pay Fees</a>
+                        <a href="#register-semester" class="student-menu-link"><i class="fas fa-calendar"></i> Register Semester</a>
+                        <a href="#register-exams" class="student-menu-link"><i class="fas fa-pencil-alt"></i> Register Exams</a>
+                        <a href="#results-transcripts" class="student-menu-link"><i class="fas fa-file-alt"></i> Results and Transcripts</a>
+                    </nav>
+                </section>
+            </aside>
+
+            <div class="content">
+                <section class="panel" id="register-courses">
+                    <h2><i class="fas fa-book"></i> Registered Courses</h2>
+                    <p class="form-message">Loading registered courses...</p>
+                </section>
+                <section class="panel" id="fee-payment-page">
+                    <h2><i class="fas fa-credit-card"></i> Fee Payment</h2>
+                    <p class="form-message">Loading fee payment form...</p>
+                </section>
+                <section class="panel" id="register-semester">
+                    <h2><i class="fas fa-calendar-check"></i> Semester Registration</h2>
+                    <p class="form-message">Loading semester details...</p>
+                </section>
+                <section class="panel" id="register-exams">
+                    <h2><i class="fas fa-pencil-alt"></i> Exam Registration</h2>
+                    <p class="form-message">Exam registration status is shown per course below.</p>
+                </section>
+                <section class="panel" id="exam-registration-page">
+                    <h2><i class="fas fa-file-signature"></i> Exam Registration Page</h2>
+                    <p class="form-message">Loading exam registration details...</p>
+                </section>
+                <section class="panel" id="results-transcripts">
+                    <h2><i class="fas fa-file-alt"></i> Results and Transcripts</h2>
+                    <p class="form-message">Results and transcript services will appear here.</p>
+                </section>
+                <section class="panel" id="results-transcripts-page">
+                    <h2><i class="fas fa-graduation-cap"></i> Results and Transcripts</h2>
+                    <p class="form-message">Loading transcript details...</p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p><i class="fas fa-info-circle"></i> Need help? Reach the Registrar office or your academic advisor.</p>
+    </footer>
+
+    <script type="module" src="student.js"></script>
+</body>
+</html>

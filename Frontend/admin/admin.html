@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal | Aura Heights University</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <header class="topbar">
+        <button type="button" class="menu-toggle js-menu-toggle" aria-label="Open admin menu" aria-expanded="false" aria-controls="admin-sidebar"><i class="fas fa-bars"></i> Menu</button>
+        <div class="brand js-admin-home" role="button" tabindex="0" aria-label="Open admin home">
+            <span class="brand-mark">AHU</span>
+            <div>
+                <h1>Admin Portal</h1>
+                <p>Aura Heights University Management System</p>
+            </div>
+        </div>
+        <nav class="topnav">
+            <a href="/index.html"><i class="fas fa-home"></i> Home</a>
+            <a class="js-active-user" href="#"><i class="fas fa-user-shield"></i> Admin</a>
+            <a href="/index.html" class="js-logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </nav>
+    </header>
+    <div class="menu-backdrop js-menu-backdrop" aria-hidden="true"></div>
+
+    <main class="page">
+      
+        <div class="layout">
+            <aside class="sidebar" id="admin-sidebar">
+                <section class="panel">
+                    <h2>Administration Modules</h2>
+                    <div class="module-stack">
+                        <details class="module-group" open>
+                            <summary><i class="fas fa-users"></i> User Management</summary>
+                            <nav class="module-links">
+                                <a href="#" class="js-create-user"><i class="fas fa-user-plus"></i> Create User</a>
+                                <a href="#" class="js-view-user-details"><i class="fas fa-user-circle"></i> View User Details</a>
+                                <a href="#" class="js-view-all-users"><i class="fas fa-list"></i> View All Users</a>
+                                <a href="#" class="js-view-deleted-users"><i class="fas fa-trash-alt"></i> View Deleted Users</a>
+                            </nav>
+                        </details>
+
+                        <details class="module-group">
+                            <summary><i class="fas fa-building"></i> School Management</summary>
+                            <nav class="module-links">
+                                <a href="#" class="js-create-school"><i class="fas fa-building"></i> Create School</a>
+                                <a href="#" class="js-view-all-schools"><i class="fas fa-list"></i> View All Schools</a>
+                                <a href="#" class="js-view-deleted-schools"><i class="fas fa-trash-alt"></i> View Deleted Schools</a>
+                            </nav>
+                        </details>
+
+                        <details class="module-group">
+                            <summary><i class="fas fa-sitemap"></i> Department Management</summary>
+                            <nav class="module-links">
+                                <a href="#" class="js-create-department"><i class="fas fa-plus-circle"></i> Create Department</a>
+                                <a href="#" class="js-view-all-departments"><i class="fas fa-list"></i> View All Departments</a>
+                                <a href="#" class="js-view-deleted-departments"><i class="fas fa-trash-alt"></i> View Deleted Departments</a>
+                            </nav>
+                        </details>
+
+                        <details class="module-group">
+                            <summary><i class="fas fa-graduation-cap"></i> Programs Management</summary>
+                            <nav class="module-links">
+                                <a href="#" class="js-create-program"><i class="fas fa-plus-circle"></i> Create Program</a>
+                                <a href="#" class="js-view-program-details"><i class="fas fa-info-circle"></i> Program Details</a>
+                                <a href="#" class="js-view-all-programs"><i class="fas fa-list"></i> View All Programs</a>
+                             
+                            </nav>
+                        </details>
+
+                        <details class="module-group">
+                            <summary><i class="fas fa-book"></i> Course Management</summary>
+                            <nav class="module-links">
+                                <a href="#" class="js-create-course"><i class="fas fa-plus-circle"></i> Create Course</a>
+                                <a href="#" class="js-course-details"><i class="fas fa-info-circle"></i> Course Details</a>
+                                <a href="#" class="js-view-all-courses"><i class="fas fa-list"></i> View All Courses</a>
+                            </nav>
+                        </details>
+
+                        <details class="module-group">
+                            <summary><i class="fas fa-clipboard-list"></i> Enrollment Management</summary>
+                            <nav class="module-links">
+                                <a href="#" class="js-enroll-student"><i class="fas fa-user-check"></i> Enroll Student</a>
+                                <a href="#" class="js-enrollment-details"><i class="fas fa-info-circle"></i> Enrollment Details</a>
+                                <a href="#" class="js-view-all-enrollments"><i class="fas fa-list"></i> View All Enrollments</a>
+                            </nav>
+                        </details>
+                        <details class="module-group">
+                            <summary><i class="fas fa-calendar-alt"></i> Academic Year </summary>
+                            <nav class="module-links">
+                                <a href="#" class="js-academic-year-functions"><i class="fas fa-calendar"></i> Academic Year</a>
+                                <a href="#" class="js-semester-functions"><i class="fas fa-calendar-check"></i> Semesters</a>
+                            </nav>
+                        </details>
+                        <details class="module-group">
+                            <summary><i class="fas fa-dollar-sign"></i> Fee Management</summary>
+                            <nav class="module-links">
+                                <a href="#" class="js-configure-program-fee"><i class="fas fa-cog"></i> Configure Program Fee</a>
+                                <a href="#" class="js-view-program-fee-records"><i class="fas fa-file-alt"></i> View Program Fee Records</a>
+                                <a href="#" class="js-record-fee-payment"><i class="fas fa-receipt"></i> Record Student Payment</a>
+                                <a href="#" class="js-view-fee-payments"><i class="fas fa-list"></i> View Payment Records</a>
+                                <a href="#" class="js-clear-student-fee"><i class="fas fa-eraser"></i> Clear Student Fee</a>
+                            </nav>
+                        </details>
+                    </div>
+                </section>
+            </aside>
+
+            <div class="content">
+                <section class="panel">
+                    <h2>Quick Forms</h2>
+                    <div class="form-grid">
+                        <form class="form-card">
+                            <h3><i class="fas fa-university"></i> New School</h3>
+                            <label>
+                                <i class="fas fa-school"></i> School Name
+                                <input type="text" placeholder="School of Computing">
+                            </label>
+                            <label>
+                                <i class="fas fa-user"></i> Dean
+                                <input type="text" placeholder="Dr. Jane Mugisha">
+                            </label>
+                            <button type="button"><i class="fas fa-save"></i> Save School</button>
+                        </form>
+                        <form class="form-card">
+                            <h3><i class="fas fa-sitemap"></i> New Department</h3>
+                            <label>
+                                <i class="fas fa-tag"></i> Department Name
+                                <input type="text" placeholder="Software Engineering">
+                            </label>
+                            <label>
+                                <i class="fas fa-user"></i> Chairperson
+                                <input type="text" placeholder="Prof. Musa Ali">
+                            </label>
+                            <button type="button"><i class="fas fa-save"></i> Save Department</button>
+                        </form>
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <h2><i class="fas fa-history"></i> Recent Activity</h2>
+                    <ul class="timeline">
+                        <li><i class="fas fa-circle-notch"></i> New student enrollment awaiting approval.</li>
+                        <li><i class="fas fa-check-circle"></i> Course catalog updated for 2026 Spring intake.</li>
+                        <li><i class="fas fa-key"></i> Faculty access granted to School of Business.</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>Admin access only. For support, contact the ICT Directorate.</p>
+    </footer>
+
+    <script type="module" src="admin.js"></script>
+</body>
+</html>

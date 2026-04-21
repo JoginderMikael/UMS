@@ -1,0 +1,10 @@
+# .dockerignore for Frontend
+node_modules/
+npm-debug.log
+coverage/
+docs/
+.git/
+.gitignore
+.idea/
+.vscode/
+*.iml

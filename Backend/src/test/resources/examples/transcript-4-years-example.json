@@ -1,0 +1,510 @@
+[
+    {
+        "academicYear":  "2023/2024",
+        "semesters":  [
+                          {
+                              "semesterNumber":  1,
+                              "courses":  [
+                                              {
+                                                  "courseId":  "5fcff3bf-32f6-414c-b132-b2383df52e0e",
+                                                  "courseCode":  "Y1S1U1",
+                                                  "courseName":  "Year 1 Semester 1 Unit 1",
+                                                  "marks":  71,
+                                                  "grade":  "B"
+                                              },
+                                              {
+                                                  "courseId":  "da693912-d565-4497-aacf-d91017de0b8e",
+                                                  "courseCode":  "Y1S1U2",
+                                                  "courseName":  "Year 1 Semester 1 Unit 2",
+                                                  "marks":  72,
+                                                  "grade":  "B"
+                                              },
+                                              {
+                                                  "courseId":  "4a759a25-8de6-4ace-ada1-8ff589f6613d",
+                                                  "courseCode":  "Y1S1U3",
+                                                  "courseName":  "Year 1 Semester 1 Unit 3",
+                                                  "marks":  73,
+                                                  "grade":  "B"
+                                              },
+                                              {
+                                                  "courseId":  "68bdf8c6-6d44-4c35-8531-055f33aba66d",
+                                                  "courseCode":  "Y1S1U4",
+                                                  "courseName":  "Year 1 Semester 1 Unit 4",
+                                                  "marks":  74,
+                                                  "grade":  "B"
+                                              },
+                                              {
+                                                  "courseId":  "3979a06f-5117-4f97-9006-30e07d53afe3",
+                                                  "courseCode":  "Y1S1U5",
+                                                  "courseName":  "Year 1 Semester 1 Unit 5",
+                                                  "marks":  75,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "3de8afa2-6ce3-4845-b85a-6251765466c3",
+                                                  "courseCode":  "Y1S1U6",
+                                                  "courseName":  "Year 1 Semester 1 Unit 6",
+                                                  "marks":  76,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "8cadb484-4dd3-4e91-bdc2-83a968ce61df",
+                                                  "courseCode":  "Y1S1U7",
+                                                  "courseName":  "Year 1 Semester 1 Unit 7",
+                                                  "marks":  77,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "1369c878-3db5-4151-b68a-5dc98a430581",
+                                                  "courseCode":  "Y1S1U8",
+                                                  "courseName":  "Year 1 Semester 1 Unit 8",
+                                                  "marks":  78,
+                                                  "grade":  "A"
+                                              }
+                                          ]
+                          },
+                          {
+                              "semesterNumber":  2,
+                              "courses":  [
+                                              {
+                                                  "courseId":  "194ee511-b743-46ab-bc68-b03db3caa1d9",
+                                                  "courseCode":  "Y1S2U1",
+                                                  "courseName":  "Year 1 Semester 2 Unit 1",
+                                                  "marks":  72,
+                                                  "grade":  "B"
+                                              },
+                                              {
+                                                  "courseId":  "f27a58d3-dad0-47ff-b78b-e83083bf287d",
+                                                  "courseCode":  "Y1S2U2",
+                                                  "courseName":  "Year 1 Semester 2 Unit 2",
+                                                  "marks":  73,
+                                                  "grade":  "B"
+                                              },
+                                              {
+                                                  "courseId":  "645c0096-0b04-4efe-933d-6c184538d8cc",
+                                                  "courseCode":  "Y1S2U3",
+                                                  "courseName":  "Year 1 Semester 2 Unit 3",
+                                                  "marks":  74,
+                                                  "grade":  "B"
+                                              },
+                                              {
+                                                  "courseId":  "b06bc047-b4ef-4f0d-8b5e-3f003264eb5b",
+                                                  "courseCode":  "Y1S2U4",
+                                                  "courseName":  "Year 1 Semester 2 Unit 4",
+                                                  "marks":  75,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "5b38ec6f-2276-46af-ba2e-2265d4e04fac",
+                                                  "courseCode":  "Y1S2U5",
+                                                  "courseName":  "Year 1 Semester 2 Unit 5",
+                                                  "marks":  76,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "a147058a-d479-48f5-bc1a-06e909d1acf4",
+                                                  "courseCode":  "Y1S2U6",
+                                                  "courseName":  "Year 1 Semester 2 Unit 6",
+                                                  "marks":  77,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "c54d66dc-0bd3-48fb-bade-6d22ce6ce539",
+                                                  "courseCode":  "Y1S2U7",
+                                                  "courseName":  "Year 1 Semester 2 Unit 7",
+                                                  "marks":  78,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "7b2695aa-22b9-4563-ad9f-3844efea17f5",
+                                                  "courseCode":  "Y1S2U8",
+                                                  "courseName":  "Year 1 Semester 2 Unit 8",
+                                                  "marks":  79,
+                                                  "grade":  "A"
+                                              }
+                                          ]
+                          }
+                      ]
+    },
+    {
+        "academicYear":  "2024/2025",
+        "semesters":  [
+                          {
+                              "semesterNumber":  1,
+                              "courses":  [
+                                              {
+                                                  "courseId":  "23c02214-9548-4d30-ba75-9fa3f0af4867",
+                                                  "courseCode":  "Y2S1U1",
+                                                  "courseName":  "Year 2 Semester 1 Unit 1",
+                                                  "marks":  72,
+                                                  "grade":  "B"
+                                              },
+                                              {
+                                                  "courseId":  "e9049d21-1f80-4ea9-9ecc-accc33dc7e6c",
+                                                  "courseCode":  "Y2S1U2",
+                                                  "courseName":  "Year 2 Semester 1 Unit 2",
+                                                  "marks":  73,
+                                                  "grade":  "B"
+                                              },
+                                              {
+                                                  "courseId":  "18ec4888-9d09-49bd-a997-53e4fda7c114",
+                                                  "courseCode":  "Y2S1U3",
+                                                  "courseName":  "Year 2 Semester 1 Unit 3",
+                                                  "marks":  74,
+                                                  "grade":  "B"
+                                              },
+                                              {
+                                                  "courseId":  "26f444a5-00a1-4ddb-93e4-10ae9238e7e4",
+                                                  "courseCode":  "Y2S1U4",
+                                                  "courseName":  "Year 2 Semester 1 Unit 4",
+                                                  "marks":  75,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "b00c5b00-5986-4dbf-8fd3-53a4dde132b5",
+                                                  "courseCode":  "Y2S1U5",
+                                                  "courseName":  "Year 2 Semester 1 Unit 5",
+                                                  "marks":  76,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "c79a8358-b2ec-4f89-9870-1538e2199521",
+                                                  "courseCode":  "Y2S1U6",
+                                                  "courseName":  "Year 2 Semester 1 Unit 6",
+                                                  "marks":  77,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "7963a627-ebbc-45b5-92e4-36727858a10f",
+                                                  "courseCode":  "Y2S1U7",
+                                                  "courseName":  "Year 2 Semester 1 Unit 7",
+                                                  "marks":  78,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "c0124006-6edd-43ac-b76d-690e3bde25fc",
+                                                  "courseCode":  "Y2S1U8",
+                                                  "courseName":  "Year 2 Semester 1 Unit 8",
+                                                  "marks":  79,
+                                                  "grade":  "A"
+                                              }
+                                          ]
+                          },
+                          {
+                              "semesterNumber":  2,
+                              "courses":  [
+                                              {
+                                                  "courseId":  "cc0707f7-8dd5-4570-a8f1-51e545f15fe8",
+                                                  "courseCode":  "Y2S2U1",
+                                                  "courseName":  "Year 2 Semester 2 Unit 1",
+                                                  "marks":  73,
+                                                  "grade":  "B"
+                                              },
+                                              {
+                                                  "courseId":  "451d5d2b-1486-4d6a-80a1-662b59642edf",
+                                                  "courseCode":  "Y2S2U2",
+                                                  "courseName":  "Year 2 Semester 2 Unit 2",
+                                                  "marks":  74,
+                                                  "grade":  "B"
+                                              },
+                                              {
+                                                  "courseId":  "5455e59d-90f2-448b-9136-cdee89c814fb",
+                                                  "courseCode":  "Y2S2U3",
+                                                  "courseName":  "Year 2 Semester 2 Unit 3",
+                                                  "marks":  75,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "2e34e79a-9f07-4c05-ab4b-8410e22ff3e2",
+                                                  "courseCode":  "Y2S2U4",
+                                                  "courseName":  "Year 2 Semester 2 Unit 4",
+                                                  "marks":  76,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "30fc87ba-86b4-4a3f-a4bc-35420cb13060",
+                                                  "courseCode":  "Y2S2U5",
+                                                  "courseName":  "Year 2 Semester 2 Unit 5",
+                                                  "marks":  77,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "fb61b5f9-5d16-4c48-ba56-efe3bae613e9",
+                                                  "courseCode":  "Y2S2U6",
+                                                  "courseName":  "Year 2 Semester 2 Unit 6",
+                                                  "marks":  78,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "33c5e824-8fdd-4548-954b-a9893caa2aaf",
+                                                  "courseCode":  "Y2S2U7",
+                                                  "courseName":  "Year 2 Semester 2 Unit 7",
+                                                  "marks":  79,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "e9363170-289d-45ff-831a-904fa3def782",
+                                                  "courseCode":  "Y2S2U8",
+                                                  "courseName":  "Year 2 Semester 2 Unit 8",
+                                                  "marks":  80,
+                                                  "grade":  "A"
+                                              }
+                                          ]
+                          }
+                      ]
+    },
+    {
+        "academicYear":  "2025/2026",
+        "semesters":  [
+                          {
+                              "semesterNumber":  1,
+                              "courses":  [
+                                              {
+                                                  "courseId":  "7a5a6ca4-5a76-4442-8c8d-048cd3958a3e",
+                                                  "courseCode":  "Y3S1U1",
+                                                  "courseName":  "Year 3 Semester 1 Unit 1",
+                                                  "marks":  73,
+                                                  "grade":  "B"
+                                              },
+                                              {
+                                                  "courseId":  "aa92656f-485b-4220-9c13-ab2fe928d545",
+                                                  "courseCode":  "Y3S1U2",
+                                                  "courseName":  "Year 3 Semester 1 Unit 2",
+                                                  "marks":  74,
+                                                  "grade":  "B"
+                                              },
+                                              {
+                                                  "courseId":  "6e6e4e65-a453-44b9-aaa0-6f944468825b",
+                                                  "courseCode":  "Y3S1U3",
+                                                  "courseName":  "Year 3 Semester 1 Unit 3",
+                                                  "marks":  75,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "225e93f8-0987-4614-94b4-820760f1cfcd",
+                                                  "courseCode":  "Y3S1U4",
+                                                  "courseName":  "Year 3 Semester 1 Unit 4",
+                                                  "marks":  76,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "b25bc0c6-0211-4d01-8e82-a966a6d1a239",
+                                                  "courseCode":  "Y3S1U5",
+                                                  "courseName":  "Year 3 Semester 1 Unit 5",
+                                                  "marks":  77,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "512e782e-0fa4-4cf2-9d33-3d4dcaf1ce5a",
+                                                  "courseCode":  "Y3S1U6",
+                                                  "courseName":  "Year 3 Semester 1 Unit 6",
+                                                  "marks":  78,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "5c22d4bd-b298-4d24-9e0c-ee907f4a78d2",
+                                                  "courseCode":  "Y3S1U7",
+                                                  "courseName":  "Year 3 Semester 1 Unit 7",
+                                                  "marks":  79,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "30fab4bb-78b6-4cdf-a485-90246ea01875",
+                                                  "courseCode":  "Y3S1U8",
+                                                  "courseName":  "Year 3 Semester 1 Unit 8",
+                                                  "marks":  80,
+                                                  "grade":  "A"
+                                              }
+                                          ]
+                          },
+                          {
+                              "semesterNumber":  2,
+                              "courses":  [
+                                              {
+                                                  "courseId":  "1895d7ce-cd84-46ff-aa6b-778d96329d15",
+                                                  "courseCode":  "Y3S2U1",
+                                                  "courseName":  "Year 3 Semester 2 Unit 1",
+                                                  "marks":  74,
+                                                  "grade":  "B"
+                                              },
+                                              {
+                                                  "courseId":  "5fd2856a-0f9a-4e3e-9988-7923e85857e4",
+                                                  "courseCode":  "Y3S2U2",
+                                                  "courseName":  "Year 3 Semester 2 Unit 2",
+                                                  "marks":  75,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "e0cfd569-cb2d-474a-90ac-619397f8f037",
+                                                  "courseCode":  "Y3S2U3",
+                                                  "courseName":  "Year 3 Semester 2 Unit 3",
+                                                  "marks":  76,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "0e29fe44-2d00-45a0-93eb-7ebd753bb217",
+                                                  "courseCode":  "Y3S2U4",
+                                                  "courseName":  "Year 3 Semester 2 Unit 4",
+                                                  "marks":  77,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "9e240d2d-5fef-4518-8b75-1c9007eed252",
+                                                  "courseCode":  "Y3S2U5",
+                                                  "courseName":  "Year 3 Semester 2 Unit 5",
+                                                  "marks":  78,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "031d2278-866d-4235-ae10-ec7938a9f585",
+                                                  "courseCode":  "Y3S2U6",
+                                                  "courseName":  "Year 3 Semester 2 Unit 6",
+                                                  "marks":  79,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "8dc157a0-6703-413d-bbd4-4a55339baf7f",
+                                                  "courseCode":  "Y3S2U7",
+                                                  "courseName":  "Year 3 Semester 2 Unit 7",
+                                                  "marks":  80,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "b337408a-2899-47c1-8ba0-182828446bc0",
+                                                  "courseCode":  "Y3S2U8",
+                                                  "courseName":  "Year 3 Semester 2 Unit 8",
+                                                  "marks":  81,
+                                                  "grade":  "A"
+                                              }
+                                          ]
+                          }
+                      ]
+    },
+    {
+        "academicYear":  "2026/2027",
+        "semesters":  [
+                          {
+                              "semesterNumber":  1,
+                              "courses":  [
+                                              {
+                                                  "courseId":  "cd140e80-4770-4fdc-942d-676240dc85cf",
+                                                  "courseCode":  "Y4S1U1",
+                                                  "courseName":  "Year 4 Semester 1 Unit 1",
+                                                  "marks":  74,
+                                                  "grade":  "B"
+                                              },
+                                              {
+                                                  "courseId":  "fe9a6301-ae0e-47d2-af3a-8c6c0128fec9",
+                                                  "courseCode":  "Y4S1U2",
+                                                  "courseName":  "Year 4 Semester 1 Unit 2",
+                                                  "marks":  75,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "81c9a92d-2884-4399-90ce-eef893b9d103",
+                                                  "courseCode":  "Y4S1U3",
+                                                  "courseName":  "Year 4 Semester 1 Unit 3",
+                                                  "marks":  76,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "d9c65fc0-ff2b-486e-9d19-96200c95f088",
+                                                  "courseCode":  "Y4S1U4",
+                                                  "courseName":  "Year 4 Semester 1 Unit 4",
+                                                  "marks":  77,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "6a0eb3ed-a719-4adc-b17a-2a320e994c0e",
+                                                  "courseCode":  "Y4S1U5",
+                                                  "courseName":  "Year 4 Semester 1 Unit 5",
+                                                  "marks":  78,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "0dae8957-4509-4906-9fcd-12d9464985a6",
+                                                  "courseCode":  "Y4S1U6",
+                                                  "courseName":  "Year 4 Semester 1 Unit 6",
+                                                  "marks":  79,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "c2aedfca-f9c5-42a0-87bb-489e5d9805f7",
+                                                  "courseCode":  "Y4S1U7",
+                                                  "courseName":  "Year 4 Semester 1 Unit 7",
+                                                  "marks":  80,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "ae18dbc1-f984-48b7-bfd8-51d9e8e79758",
+                                                  "courseCode":  "Y4S1U8",
+                                                  "courseName":  "Year 4 Semester 1 Unit 8",
+                                                  "marks":  81,
+                                                  "grade":  "A"
+                                              }
+                                          ]
+                          },
+                          {
+                              "semesterNumber":  2,
+                              "courses":  [
+                                              {
+                                                  "courseId":  "c677bb61-e5e8-41eb-8041-3a465abe2221",
+                                                  "courseCode":  "Y4S2U1",
+                                                  "courseName":  "Year 4 Semester 2 Unit 1",
+                                                  "marks":  75,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "125ddfd6-b573-472a-8149-bad9ae880f44",
+                                                  "courseCode":  "Y4S2U2",
+                                                  "courseName":  "Year 4 Semester 2 Unit 2",
+                                                  "marks":  76,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "381aa7df-b378-4ea7-b55d-5185cf93fa31",
+                                                  "courseCode":  "Y4S2U3",
+                                                  "courseName":  "Year 4 Semester 2 Unit 3",
+                                                  "marks":  77,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "1e4a0d05-5b1c-4223-b6ea-e301e178dcaf",
+                                                  "courseCode":  "Y4S2U4",
+                                                  "courseName":  "Year 4 Semester 2 Unit 4",
+                                                  "marks":  78,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "9bf8d123-824a-4cc0-9f7a-d0f0958fa101",
+                                                  "courseCode":  "Y4S2U5",
+                                                  "courseName":  "Year 4 Semester 2 Unit 5",
+                                                  "marks":  79,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "fad988a0-a543-406b-a954-697bd444ae09",
+                                                  "courseCode":  "Y4S2U6",
+                                                  "courseName":  "Year 4 Semester 2 Unit 6",
+                                                  "marks":  80,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "9f9b4cea-882e-48f9-ae56-744f5b4b43fa",
+                                                  "courseCode":  "Y4S2U7",
+                                                  "courseName":  "Year 4 Semester 2 Unit 7",
+                                                  "marks":  81,
+                                                  "grade":  "A"
+                                              },
+                                              {
+                                                  "courseId":  "08c7e865-aad5-4fb7-9435-4aca94c8657d",
+                                                  "courseCode":  "Y4S2U8",
+                                                  "courseName":  "Year 4 Semester 2 Unit 8",
+                                                  "marks":  82,
+                                                  "grade":  "A"
+                                              }
+                                          ]
+                          }
+                      ]
+    }
+]

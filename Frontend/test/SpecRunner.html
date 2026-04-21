@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Jasmine Spec Runner v4.0.0</title>
+
+  <link rel="shortcut icon" type="image/png" href="../node_modules/jasmine-core/images/jasmine_favicon.png">
+  <link rel="stylesheet" href="../node_modules/jasmine-core/lib/jasmine-core/jasmine.css">
+
+  <script src="../node_modules/jasmine-core/lib/jasmine-core/jasmine.js"></script>
+  <script src="../node_modules/jasmine-core/lib/jasmine-core/jasmine-html.js"></script>
+  <script src="../node_modules/jasmine-core/lib/jasmine-core/boot0.js"></script>
+  <!-- optional: allowEnvConfig, etc -->
+  <script src="../node_modules/jasmine-core/lib/jasmine-core/boot1.js"></script>
+
+  <!-- include spec files here as modules -->
+  <!-- Admin specs -->
+  <script type="module" src="spec/admin/adminModelSpec.js"></script>
+  <script type="module" src="spec/admin/adminControllerSpec.js"></script>
+
+  <!-- Faculty specs -->
+  <script type="module" src="spec/faculty/facultyModelSpec.js"></script>
+  <script type="module" src="spec/faculty/gradingControllerSpec.js"></script>
+
+  <!-- Student specs -->
+  <script type="module" src="spec/student/studentModelSpec.js"></script>
+  <script type="module" src="spec/student/studentDashboardControllerSpec.js"></script>
+
+</head>
+
+<body>
+  <div id="test-sandbox" style="display: none;"></div>
+</body>
+
+</html>

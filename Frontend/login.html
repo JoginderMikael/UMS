@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Aurora Heights University</title>
+    <link rel="stylesheet" href="/styles/login.css">
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Aura Heights University</h2>
+        <p>University Management System Login</p>
+
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="example@email.com" required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="js-failed-response"></div>
+            <button type="submit" class="js-login-button">Login</button>
+        </form>
+
+        <div class="login-footer">
+            
+            <a href="index.html">← Back to Home</a>
+        </div>
+    </div>
+
+    <script type="module" src="/scripts/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+{
+  "plugins": ["plugins/markdown"],
+  "source": {
+    "include": ["."],
+    "exclude": ["node_modules", "docs/jsdoc"],
+    "includePattern": ".+\\.js$",
+    "excludePattern": "(^|/|\\\\)_"
+  },
+  "opts": {
+    "recurse": true,
+    "destination": "./docs/jsdoc",
+    "encoding": "utf8",
+    "template": "./node_modules/docdash"
+  },
+  "templates": {
+    "default": {
+      "includeDate": false,
+      "outputSourceFiles": true
+    },
+    "docdash": {
+      "sectionOrder": [
+        "Modules",
+        "Classes",
+        "Externals",
+        "Events",
+        "Namespaces",
+        "Mixins",
+        "Tutorials",
+        "Interfaces",
+        "Global"
+      ],
+      "search": true,
+      "collapse": false,
+      "typedefs": true,
+      "removeQuotes": "none",
+      "scripts": [],
+      "menu": {
+        "Repository": {
+          "href": ".",
+          "target": "_blank",
+          "class": "menu-item",
+          "id": "repository_link"
+        }
+      }
+    }
+  }
+}
