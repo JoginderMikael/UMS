@@ -1,5 +1,12 @@
 export const navItems = ['Home', 'Academics', 'Admissions', 'Campus Life']
 
+export const homeStats = [
+  { label: 'Students', value: '12,500+' },
+  { label: 'Programs', value: '80+' },
+  { label: 'Faculty', value: '650+' },
+  { label: 'Employability', value: '94%' },
+]
+
 export const aboutCards = [
   {
     id: 'about-description',
