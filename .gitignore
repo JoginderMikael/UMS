@@ -13,3 +13,7 @@ Frontend/docs/
 Frontend/coverage/
 Frontend/.nyc_output/
 Frontend/.vscode/
+
+# Local-only transition artifacts
+.hintrc
+frontend-legacy/.vscode/
