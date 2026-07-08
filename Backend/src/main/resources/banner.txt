@@ -1,0 +1,8 @@
+${AnsiColor.BRIGHT_CYAN}
+██╗   ██╗███╗   ███╗███████╗
+██║   ██║████╗ ████║██╔════╝
+██║   ██║██╔████╔██║███████╗
+██║   ██║██║╚██╔╝██║╚════██║
+╚██████╔╝██║ ╚═╝ ██║███████║
+ ╚═════╝ ╚═╝     ╚═╝╚══════╝
+${AnsiColor.BRIGHT_YELLOW}University Management System${AnsiColor.DEFAULT}
