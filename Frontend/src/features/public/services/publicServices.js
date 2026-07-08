@@ -1,1 +1,1 @@
-export const publicServiceBlueprint = ['authService', 'sessionService', 'roleService', 'homeService']
+export { loginWithCredentials, fetchCurrentUser } from './authService'

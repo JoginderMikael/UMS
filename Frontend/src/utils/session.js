@@ -1,7 +1,27 @@
 import { roleHomePathMap } from '../constants/homeContent'
 
+const TOKEN_KEY = 'token'
+const CURRENT_USER_KEY = 'currentUserData'
+
+export function saveToken(token) {
+  localStorage.setItem(TOKEN_KEY, token)
+}
+
+export function loadToken() {
+  return localStorage.getItem(TOKEN_KEY)
+}
+
+export function saveCurrentUser(user) {
+  localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user))
+}
+
+export function clearSession() {
+  localStorage.removeItem(TOKEN_KEY)
+  localStorage.removeItem(CURRENT_USER_KEY)
+}
+
 export function readCurrentUser() {
-  const raw = localStorage.getItem('currentUserData')
+  const raw = localStorage.getItem(CURRENT_USER_KEY)
   if (!raw) {
     return null
   }
@@ -19,7 +39,7 @@ export function resolveUserNavState() {
   if (!user) {
     return {
       userLabel: 'Login',
-      userPath: '/login.html',
+      userPath: '/login',
       isLoggedIn: false,
     }
   }
@@ -29,7 +49,7 @@ export function resolveUserNavState() {
 
   return {
     userLabel: fullName || 'Login',
-    userPath: roleHomePathMap[roleKey] ?? '/login.html',
+    userPath: roleHomePathMap[roleKey] ?? '/login',
     isLoggedIn: Boolean(fullName),
   }
 }

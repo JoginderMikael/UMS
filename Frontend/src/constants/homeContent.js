@@ -35,7 +35,7 @@ export const aboutCards = [
 ]
 
 export const roleHomePathMap = {
-  ADMIN: '/admin/admin.html',
-  STUDENT: '/student/student.html',
-  FACULTY: '/faculty/faculty.html',
+  ADMIN: '/admin/dashboard',
+  STUDENT: '/student/dashboard',
+  FACULTY: '/faculty',
 }

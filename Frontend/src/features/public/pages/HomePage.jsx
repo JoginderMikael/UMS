@@ -1,5 +1,3 @@
-function HomePage() {
-  return <div className="p-6">Public Home Page (migration placeholder)</div>
-}
+import HomePage from '../../../pages/HomePage'
 
 export default HomePage
