@@ -1,39 +1,49 @@
+import axios from 'axios'
 import { API_BASE_URL } from '../constants/authConstants'
 
+const authApi = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  timeout: 15000,
+})
+
 export async function loginWithCredentials(email, password) {
-  const response = await fetch(`${API_BASE_URL}/auth/login`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email, password }),
-  })
-
-  if (!response.ok) {
-    const error = new Error(`Login request failed with status ${response.status}`)
-    error.status = response.status
-    throw error
+  try {
+    const response = await authApi.post('/auth/login', { email, password })
+    return response.data
+  } catch (error) {
+    throw toHttpError(error, 'Login request failed')
   }
-
-  return response.json()
 }
 
 export async function fetchCurrentUser(token) {
-  const response = await fetch(`${API_BASE_URL}/users/me`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
+  try {
+    const response = await authApi.get('/users/me', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
 
-  if (!response.ok) {
-    const error = new Error(`Fetch current user failed with status ${response.status}`)
-    error.status = response.status
-    throw error
+    return unwrapEntity(response.data)
+  } catch (error) {
+    throw toHttpError(error, 'Fetch current user failed')
+  }
+}
+
+function toHttpError(error, fallbackMessage) {
+  const status = error?.response?.status
+  const message = status
+    ? `${fallbackMessage} with status ${status}`
+    : error?.message || fallbackMessage
+
+  const httpError = new Error(message)
+  if (status) {
+    httpError.status = status
   }
 
-  const payload = await response.json()
-  return unwrapEntity(payload)
+  return httpError
 }
 
 function unwrapEntity(value) {
