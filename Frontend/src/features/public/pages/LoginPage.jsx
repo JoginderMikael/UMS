@@ -43,7 +43,7 @@ function LoginPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-gradient-to-r from-[#0b3c5d] to-[#3282b8] px-4 py-8">
+    <main className="flex min-h-screen items-center justify-center bg-linear-to-r from-[#0b3c5d] to-[#3282b8] px-4 py-8">
       <div className="w-full max-w-md">
         <LoginFormCard
           formData={formData}

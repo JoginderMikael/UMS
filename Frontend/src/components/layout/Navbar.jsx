@@ -1,3 +1,5 @@
+import { Link, NavLink } from 'react-router-dom'
+
 function Navbar({ navItems, userLabel, userPath, isLoggedIn }) {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/20 bg-slate-950/70 text-white shadow-lg shadow-slate-950/20 backdrop-blur-xl">
@@ -9,18 +11,24 @@ function Navbar({ navItems, userLabel, userPath, isLoggedIn }) {
         <nav aria-label="Main navigation">
           <ul className="flex flex-wrap items-center gap-2 md:gap-4">
             {navItems.map((item) => (
-              <li key={item}>
-                <a
-                  href="#"
-                  className="rounded-full px-3 py-1.5 text-sm font-medium text-white/90 transition hover:bg-white/15 hover:text-white"
+              <li key={item.to}>
+                <NavLink
+                  to={item.to}
+                  className={({ isActive }) =>
+                    `rounded-full px-3 py-1.5 text-sm font-medium transition ${
+                      isActive
+                        ? 'bg-white/20 text-white'
+                        : 'text-white/90 hover:bg-white/15 hover:text-white'
+                    }`
+                  }
                 >
-                  {item}
-                </a>
+                  {item.label}
+                </NavLink>
               </li>
             ))}
             <li>
-              <a
-                href={userPath}
+              <Link
+                to={userPath}
                 className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
                   isLoggedIn
                     ? 'border border-cyan-300/40 bg-cyan-400/10 text-cyan-100 hover:bg-cyan-300/20'
@@ -28,7 +36,7 @@ function Navbar({ navItems, userLabel, userPath, isLoggedIn }) {
                 }`}
               >
                 {userLabel}
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>

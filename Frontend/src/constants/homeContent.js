@@ -1,4 +1,9 @@
-export const navItems = ['Home', 'Academics', 'Admissions', 'Campus Life']
+export const navItems = [
+  { label: 'Home', to: '/' },
+  { label: 'Academics', to: '/academics' },
+  { label: 'Admissions', to: '/admissions' },
+  { label: 'Campus Life', to: '/campus-life' },
+]
 
 export const homeStats = [
   { label: 'Students', value: '12,500+' },
