@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react'
-import type { ReactNode } from 'react'
 import {
   activateAcademicYear,
   activateSemester,
@@ -51,163 +50,17 @@ import {
   type User,
 } from '../services/adminServices'
 import { loadToken } from '../../../utils/session'
-
-type Section = 'overview' | 'users' | 'schools' | 'departments' | 'programs' | 'courses' | 'cycle'
-type StatusKind = 'success' | 'error' | 'info'
-
-type Status = {
-  text: string
-  kind: StatusKind
-}
-
-type IdLike = {
-  id?: string | number
-  schoolId?: string | number
-  departmentId?: string | number
-  programId?: string | number
-  courseId?: string | number
-  userId?: string | number
-  academicYearId?: string | number
-  semesterId?: string | number
-}
-
-const navItems: Array<{ key: Section; label: string; icon: string; subtitle: string }> = [
-  { key: 'overview', label: 'Overview', icon: '📊', subtitle: 'System health and quick actions' },
-  { key: 'users', label: 'Users', icon: '👥', subtitle: 'Create / lookup / deactivate / restore users' },
-  { key: 'schools', label: 'Schools', icon: '🏛️', subtitle: 'School lifecycle management' },
-  { key: 'departments', label: 'Departments', icon: '🧭', subtitle: 'School-scoped departments controls' },
-  { key: 'programs', label: 'Programs', icon: '🎓', subtitle: 'Program lifecycle + course mapping' },
-  { key: 'courses', label: 'Courses', icon: '📚', subtitle: 'Course catalog operations' },
-  { key: 'cycle', label: 'Academic Cycle', icon: '🗓️', subtitle: 'Academic year and semester controls' },
-]
-
-const summaryFallback: DashboardSummary = {
-  totalSchools: 0,
-  totalDepartments: 0,
-  totalPrograms: 0,
-  totalCourses: 0,
-  totalStudents: 0,
-  totalAdmins: 0,
-  totalFaculty: 0,
-  activeAcademicYear: 'N/A',
-  activeSemester: 'N/A',
-}
-
-function toId(value: IdLike): string {
-  return String(
-    value.id ||
-      value.userId ||
-      value.schoolId ||
-      value.departmentId ||
-      value.programId ||
-      value.courseId ||
-      value.academicYearId ||
-      value.semesterId ||
-      '',
-  )
-}
-
-function text(value: unknown): string {
-  if (value === null || value === undefined || value === '') {
-    return 'N/A'
-  }
-  return String(value)
-}
-
-function fullName(user: User): string {
-  return `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'Unnamed user'
-}
-
-function RolePill({ role }: { role: string }) {
-  const value = role.toUpperCase() || 'UNKNOWN'
-  const className =
-    value === 'ADMIN'
-      ? 'border-violet-300/40 bg-violet-500/20 text-violet-100'
-      : value === 'FACULTY'
-        ? 'border-sky-300/40 bg-sky-500/20 text-sky-100'
-        : 'border-emerald-300/40 bg-emerald-500/20 text-emerald-100'
-
-  return <span className={`rounded-full border px-2 py-0.5 text-xs font-semibold ${className}`}>{value}</span>
-}
-
-function Panel({ title, children }: { title: string; children: ReactNode }) {
-  return (
-    <section className="rounded-2xl border border-white/10 bg-slate-950/50 p-4">
-      <h3 className="text-lg font-semibold">{title}</h3>
-      <div className="mt-3">{children}</div>
-    </section>
-  )
-}
-
-function Metric({ label, value }: { label: string; value: string | number }) {
-  return (
-    <article className="rounded-2xl border border-white/10 bg-slate-950/60 p-4">
-      <p className="text-xs uppercase tracking-[0.14em] text-slate-400">{label}</p>
-      <p className="mt-2 text-2xl font-black text-violet-100">{text(value)}</p>
-    </article>
-  )
-}
-
-function Input({ value, onChange, placeholder, compact = false }: { value: string; onChange: (v: string) => void; placeholder?: string; compact?: boolean }) {
-  return (
-    <input
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      placeholder={placeholder}
-      className={`rounded-lg border border-slate-700 bg-slate-900/70 text-slate-100 outline-none transition focus:border-violet-400/60 focus:ring-2 focus:ring-violet-400/20 ${compact ? 'px-2 py-1.5 text-xs' : 'px-3 py-2 text-sm'}`}
-    />
-  )
-}
-
-function Select({ value, onChange, options, placeholder, compact = false }: { value: string; onChange: (v: string) => void; options: Array<string | { value: string; label: string }>; placeholder?: string; compact?: boolean }) {
-  return (
-    <select
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      className={`rounded-lg border border-slate-700 bg-slate-900/70 text-slate-100 outline-none transition focus:border-violet-400/60 focus:ring-2 focus:ring-violet-400/20 ${compact ? 'px-2 py-1.5 text-xs' : 'px-3 py-2 text-sm'}`}
-    >
-      {placeholder ? <option value="">{placeholder}</option> : null}
-      {options.map((option) =>
-        typeof option === 'string' ? (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ) : (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ),
-      )}
-    </select>
-  )
-}
-
-function ActionButton({ onClick, children }: { onClick: () => void; children: ReactNode }) {
-  return (
-    <button type="button" onClick={onClick} className="mt-3 rounded-lg bg-linear-to-r from-violet-600 to-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:brightness-110">
-      {children}
-    </button>
-  )
-}
-
-function SmallButton({ onClick, children, kind }: { onClick: () => void; children: ReactNode; kind: 'primary' | 'secondary' | 'danger' | 'ghost' | 'success' }) {
-  const style =
-    kind === 'primary'
-      ? 'border-violet-300/40 bg-violet-500/20 text-violet-100'
-      : kind === 'secondary'
-        ? 'border-sky-300/40 bg-sky-500/15 text-sky-100'
-        : kind === 'danger'
-          ? 'border-rose-300/40 bg-rose-500/15 text-rose-100'
-          : kind === 'success'
-            ? 'border-emerald-300/40 bg-emerald-500/15 text-emerald-100'
-            : 'border-slate-600 bg-slate-800/70 text-slate-200'
-
-  return (
-    <button type="button" onClick={onClick} className={`rounded-md border px-2.5 py-1 text-xs font-semibold transition hover:brightness-110 ${style}`}>
-      {children}
-    </button>
-  )
-}
+import { navItems, type Section, type Status, type StatusKind, summaryFallback } from '../components/dashboard/constants'
+import { fullName, toId } from '../components/dashboard/helpers'
+import {
+  CoursesSection,
+  CycleSection,
+  DepartmentsSection,
+  OverviewSection,
+  ProgramsSection,
+  SchoolsSection,
+  UsersSection,
+} from '../components/dashboard/sections'
 
 function AdminDashboardPage() {
   const token = useMemo(() => loadToken(), [])
@@ -401,8 +254,6 @@ function AdminDashboardPage() {
     })
   }, [token, selectedProgramId])
 
-  const selectedNav = navItems.find((item) => item.key === section) || navItems[0]
-
   async function refreshAll(): Promise<void> {
     if (!token) return
     await Promise.all([loadSummary(token), loadUsers(token), loadSchools(token), loadCycle(token)])
@@ -411,7 +262,6 @@ function AdminDashboardPage() {
     }
   }
 
-  // Users handlers
   async function onCreateUser(): Promise<void> {
     if (!token) return
     if (!newUser.firstName.trim() || !newUser.lastName.trim() || !newUser.email.trim()) {
@@ -491,7 +341,6 @@ function AdminDashboardPage() {
     })
   }
 
-  // School handlers
   async function onCreateSchool(): Promise<void> {
     if (!token) return
     if (!newSchool.name.trim() || !newSchool.code.trim()) {
@@ -542,7 +391,6 @@ function AdminDashboardPage() {
     })
   }
 
-  // Department handlers
   async function onCreateDepartment(): Promise<void> {
     if (!token) return
     if (!selectedSchoolId || !newDepartment.name.trim() || !newDepartment.code.trim()) {
@@ -593,7 +441,6 @@ function AdminDashboardPage() {
     })
   }
 
-  // Program handlers
   async function onCreateProgram(): Promise<void> {
     if (!token) return
     if (!selectedSchoolId || !selectedDepartmentId || !newProgram.name.trim() || !newProgram.code.trim()) {
@@ -666,7 +513,6 @@ function AdminDashboardPage() {
     })
   }
 
-  // Course handlers
   async function onCreateCourse(): Promise<void> {
     if (!token) return
     if (!selectedSchoolId || !selectedDepartmentId || !newCourse.title.trim() || !newCourse.code.trim()) {
@@ -714,7 +560,6 @@ function AdminDashboardPage() {
     })
   }
 
-  // Cycle handlers
   async function addAcademicYear(): Promise<void> {
     if (!token) return
     if (!newYearName.trim()) {
@@ -762,6 +607,8 @@ function AdminDashboardPage() {
       showStatus('Semester activated.', 'success')
     })
   }
+
+  const selectedNav = navItems.find((item) => item.key === section) || navItems[0]
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-slate-950 px-4 py-8 text-slate-100 md:px-8 md:py-10">
@@ -818,450 +665,157 @@ function AdminDashboardPage() {
           </div>
 
           {status ? (
-            <div className={`mb-4 rounded-xl border px-3 py-2 text-sm ${status.kind === 'success' ? 'border-emerald-400/40 bg-emerald-500/10 text-emerald-200' : status.kind === 'error' ? 'border-rose-400/40 bg-rose-500/10 text-rose-200' : 'border-slate-600 bg-slate-800/70 text-slate-200'}`}>
+            <div
+              className={`mb-4 rounded-xl border px-3 py-2 text-sm ${
+                status.kind === 'success'
+                  ? 'border-emerald-400/40 bg-emerald-500/10 text-emerald-200'
+                  : status.kind === 'error'
+                    ? 'border-rose-400/40 bg-rose-500/10 text-rose-200'
+                    : 'border-slate-600 bg-slate-800/70 text-slate-200'
+              }`}
+            >
               {status.text}
             </div>
           ) : null}
 
-          {section === 'overview' ? (
-            <div className="space-y-5">
-              <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-                <Metric label="Schools" value={summary.totalSchools} />
-                <Metric label="Departments" value={summary.totalDepartments} />
-                <Metric label="Programs" value={summary.totalPrograms} />
-                <Metric label="Courses" value={summary.totalCourses} />
-                <Metric label="Students" value={summary.totalStudents} />
-                <Metric label="Admins" value={summary.totalAdmins} />
-                <Metric label="Faculty" value={summary.totalFaculty} />
-                <Metric label="Active Semester" value={summary.activeSemester} />
-              </div>
-
-              <Panel title="Quick navigation">
-                <div className="flex flex-wrap gap-2">
-                  {navItems.filter((item) => item.key !== 'overview').map((item) => (
-                    <button key={`quick-${item.key}`} type="button" onClick={() => setSection(item.key)} className="rounded-full border border-slate-600 bg-slate-900/65 px-3 py-1.5 text-sm transition hover:border-violet-300/40 hover:bg-violet-400/10">
-                      {item.icon} {item.label}
-                    </button>
-                  ))}
-                </div>
-              </Panel>
-            </div>
-          ) : null}
+          {section === 'overview' ? <OverviewSection summary={summary} setSection={setSection} /> : null}
 
           {section === 'users' ? (
-            <div className="space-y-5">
-              <Panel title="Create user">
-                <div className="grid gap-3 md:grid-cols-2">
-                  <Input value={newUser.firstName} onChange={(v) => setNewUser((s) => ({ ...s, firstName: v }))} placeholder="First name" />
-                  <Input value={newUser.lastName} onChange={(v) => setNewUser((s) => ({ ...s, lastName: v }))} placeholder="Last name" />
-                  <Input value={newUser.email} onChange={(v) => setNewUser((s) => ({ ...s, email: v }))} placeholder="Email" />
-                  <Select value={newUser.role} onChange={(v) => setNewUser((s) => ({ ...s, role: v }))} options={['ADMIN', 'STUDENT', 'FACULTY']} />
-                </div>
-                <ActionButton onClick={() => void onCreateUser()}>Create user</ActionButton>
-              </Panel>
-
-              <Panel title="Lookup user">
-                <div className="grid gap-3 md:grid-cols-[160px_1fr_auto]">
-                  <Select value={lookupMode} onChange={(v) => setLookupMode(v as 'email' | 'id')} options={['email', 'id']} />
-                  <Input value={lookupValue} onChange={setLookupValue} placeholder="Lookup value" />
-                  <ActionButton onClick={() => void onLookupUser()}>Find</ActionButton>
-                </div>
-                {lookupUser ? (
-                  <div className="mt-3 rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-sm">
-                    <p className="font-semibold">{fullName(lookupUser)}</p>
-                    <p className="text-slate-300">{text(lookupUser.email)} • {text(lookupUser.role)}</p>
-                    <p className="text-xs text-slate-400">ID: {toId(lookupUser)}</p>
-                  </div>
-                ) : null}
-              </Panel>
-
-              <Panel title="Active users">
-                <Input value={userQuery} onChange={setUserQuery} placeholder="Search users by name/email/role/id" />
-                <div className="mt-3 overflow-x-auto">
-                  <table className="min-w-full text-left text-sm">
-                    <thead>
-                      <tr className="border-b border-slate-700 text-slate-300">
-                        <th className="px-2 py-2">Name</th>
-                        <th className="px-2 py-2">Email</th>
-                        <th className="px-2 py-2">Role</th>
-                        <th className="px-2 py-2">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {filteredUsers.length === 0 ? (
-                        <tr><td className="px-2 py-3 text-slate-400" colSpan={4}>No users found.</td></tr>
-                      ) : (
-                        filteredUsers.map((user) => {
-                          const id = toId(user)
-                          const editing = editUserId === id
-                          return (
-                            <tr key={`user-${id}`} className="border-b border-slate-800/80">
-                              <td className="px-2 py-2">
-                                {editing ? (
-                                  <div className="grid gap-1">
-                                    <Input compact value={editUserData.firstName} onChange={(v) => setEditUserData((s) => ({ ...s, firstName: v }))} placeholder="First" />
-                                    <Input compact value={editUserData.lastName} onChange={(v) => setEditUserData((s) => ({ ...s, lastName: v }))} placeholder="Last" />
-                                  </div>
-                                ) : fullName(user)}
-                              </td>
-                              <td className="px-2 py-2">{editing ? <Input compact value={editUserData.email} onChange={(v) => setEditUserData((s) => ({ ...s, email: v }))} placeholder="Email" /> : text(user.email)}</td>
-                              <td className="px-2 py-2">{editing ? <Select compact value={editUserData.role} onChange={(v) => setEditUserData((s) => ({ ...s, role: v }))} options={['ADMIN', 'STUDENT', 'FACULTY']} /> : <RolePill role={String(user.role || '')} />}</td>
-                              <td className="px-2 py-2">
-                                <div className="flex flex-wrap gap-2">
-                                  {editing ? (
-                                    <>
-                                      <SmallButton kind="primary" onClick={() => void saveUser(id)}>Save</SmallButton>
-                                      <SmallButton kind="ghost" onClick={() => setEditUserId('')}>Cancel</SmallButton>
-                                    </>
-                                  ) : (
-                                    <>
-                                      <SmallButton kind="secondary" onClick={() => startEditUser(user)}>Edit</SmallButton>
-                                      <SmallButton kind="danger" onClick={() => void deactivateUser(id)}>Deactivate</SmallButton>
-                                    </>
-                                  )}
-                                </div>
-                              </td>
-                            </tr>
-                          )
-                        })
-                      )}
-                    </tbody>
-                  </table>
-                </div>
-              </Panel>
-
-              <Panel title="Deleted users">
-                <div className="space-y-2">
-                  {deletedUsers.length === 0 ? (
-                    <p className="text-sm text-slate-400">No deleted users.</p>
-                  ) : (
-                    deletedUsers.map((user) => {
-                      const id = toId(user)
-                      return (
-                        <div key={`deleted-user-${id}`} className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-700 bg-slate-900/70 px-3 py-2">
-                          <span className="text-sm">{fullName(user)} ({text(user.email)})</span>
-                          <SmallButton kind="success" onClick={() => void restoreUser(id)}>Restore</SmallButton>
-                        </div>
-                      )
-                    })
-                  )}
-                </div>
-              </Panel>
-            </div>
+            <UsersSection
+              newUser={newUser}
+              setNewUser={setNewUser}
+              onCreateUser={() => void onCreateUser()}
+              lookupMode={lookupMode}
+              setLookupMode={setLookupMode}
+              lookupValue={lookupValue}
+              setLookupValue={setLookupValue}
+              onLookupUser={() => void onLookupUser()}
+              lookupUser={lookupUser}
+              userQuery={userQuery}
+              setUserQuery={setUserQuery}
+              filteredUsers={filteredUsers}
+              editUserId={editUserId}
+              editUserData={editUserData}
+              setEditUserData={setEditUserData}
+              startEditUser={startEditUser}
+              saveUser={(id) => void saveUser(id)}
+              setEditUserId={setEditUserId}
+              deactivateUser={(id) => void deactivateUser(id)}
+              deletedUsers={deletedUsers}
+              restoreUser={(id) => void restoreUser(id)}
+            />
           ) : null}
 
           {section === 'schools' ? (
-            <div className="space-y-5">
-              <Panel title="Create school">
-                <div className="grid gap-3 md:grid-cols-2">
-                  <Input value={newSchool.name} onChange={(v) => setNewSchool((s) => ({ ...s, name: v }))} placeholder="School name" />
-                  <Input value={newSchool.code} onChange={(v) => setNewSchool((s) => ({ ...s, code: v }))} placeholder="School code" />
-                </div>
-                <ActionButton onClick={() => void onCreateSchool()}>Create school</ActionButton>
-              </Panel>
-
-              <Panel title="Active schools">
-                <div className="space-y-2">
-                  {schools.length === 0 ? (
-                    <p className="text-sm text-slate-400">No schools found.</p>
-                  ) : (
-                    schools.map((school) => {
-                      const id = toId(school)
-                      const editing = editSchoolId === id
-                      return (
-                        <div key={`school-${id}`} className="rounded-lg border border-slate-700 bg-slate-900/70 px-3 py-2">
-                          {editing ? (
-                            <div className="grid gap-2 md:grid-cols-[1fr_220px_auto_auto]">
-                              <Input compact value={editSchoolData.name} onChange={(v) => setEditSchoolData((s) => ({ ...s, name: v }))} placeholder="School name" />
-                              <Input compact value={editSchoolData.code} onChange={(v) => setEditSchoolData((s) => ({ ...s, code: v }))} placeholder="Code" />
-                              <SmallButton kind="primary" onClick={() => void saveSchool(id)}>Save</SmallButton>
-                              <SmallButton kind="ghost" onClick={() => setEditSchoolId('')}>Cancel</SmallButton>
-                            </div>
-                          ) : (
-                            <div className="flex flex-wrap items-center justify-between gap-2">
-                              <span className="text-sm font-medium">{text(school.name || school.schoolName)} ({text(school.code || school.schoolCode)})</span>
-                              <div className="flex gap-2">
-                                <SmallButton kind="secondary" onClick={() => startEditSchool(school)}>Edit</SmallButton>
-                                <SmallButton kind="danger" onClick={() => void removeSchool(id)}>Delete</SmallButton>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      )
-                    })
-                  )}
-                </div>
-              </Panel>
-
-              <Panel title="Deleted schools">
-                <div className="space-y-2">
-                  {deletedSchools.length === 0 ? (
-                    <p className="text-sm text-slate-400">No deleted schools.</p>
-                  ) : (
-                    deletedSchools.map((school) => {
-                      const id = toId(school)
-                      return (
-                        <div key={`deleted-school-${id}`} className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-700 bg-slate-900/70 px-3 py-2">
-                          <span className="text-sm">{text(school.name || school.schoolName)} ({text(school.code || school.schoolCode)})</span>
-                          <SmallButton kind="success" onClick={() => void restoreSchool(id)}>Restore</SmallButton>
-                        </div>
-                      )
-                    })
-                  )}
-                </div>
-              </Panel>
-            </div>
+            <SchoolsSection
+              newSchool={newSchool}
+              setNewSchool={setNewSchool}
+              onCreateSchool={() => void onCreateSchool()}
+              schools={schools}
+              editSchoolId={editSchoolId}
+              editSchoolData={editSchoolData}
+              setEditSchoolData={setEditSchoolData}
+              startEditSchool={startEditSchool}
+              saveSchool={(id) => void saveSchool(id)}
+              setEditSchoolId={setEditSchoolId}
+              removeSchool={(id) => void removeSchool(id)}
+              deletedSchools={deletedSchools}
+              restoreSchool={(id) => void restoreSchool(id)}
+            />
           ) : null}
 
           {section === 'departments' ? (
-            <div className="space-y-5">
-              <Panel title="Department controls">
-                <div className="grid gap-3 md:grid-cols-3">
-                  <Select value={selectedSchoolId} onChange={setSelectedSchoolId} options={schools.map((s) => ({ value: toId(s), label: text(s.name || s.schoolName) }))} placeholder="Select school" />
-                  <Input value={newDepartment.name} onChange={(v) => setNewDepartment((s) => ({ ...s, name: v }))} placeholder="Department name" />
-                  <Input value={newDepartment.code} onChange={(v) => setNewDepartment((s) => ({ ...s, code: v }))} placeholder="Department code" />
-                </div>
-                <ActionButton onClick={() => void onCreateDepartment()}>Create department</ActionButton>
-              </Panel>
-
-              <Panel title="Active departments">
-                <div className="space-y-2">
-                  {departments.length === 0 ? (
-                    <p className="text-sm text-slate-400">No departments found for selected school.</p>
-                  ) : (
-                    departments.map((department) => {
-                      const id = toId(department)
-                      const editing = editDepartmentId === id
-                      return (
-                        <div key={`department-${id}`} className="rounded-lg border border-slate-700 bg-slate-900/70 px-3 py-2">
-                          {editing ? (
-                            <div className="grid gap-2 md:grid-cols-[1fr_220px_auto_auto]">
-                              <Input compact value={editDepartmentData.name} onChange={(v) => setEditDepartmentData((s) => ({ ...s, name: v }))} placeholder="Department name" />
-                              <Input compact value={editDepartmentData.code} onChange={(v) => setEditDepartmentData((s) => ({ ...s, code: v }))} placeholder="Code" />
-                              <SmallButton kind="primary" onClick={() => void saveDepartment(id)}>Save</SmallButton>
-                              <SmallButton kind="ghost" onClick={() => setEditDepartmentId('')}>Cancel</SmallButton>
-                            </div>
-                          ) : (
-                            <div className="flex flex-wrap items-center justify-between gap-2">
-                              <span className="text-sm font-medium">{text(department.name || department.departmentName)} ({text(department.code || department.departmentCode)})</span>
-                              <div className="flex gap-2">
-                                <SmallButton kind="secondary" onClick={() => startEditDepartment(department)}>Edit</SmallButton>
-                                <SmallButton kind="danger" onClick={() => void removeDepartment(id)}>Delete</SmallButton>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      )
-                    })
-                  )}
-                </div>
-              </Panel>
-
-              <Panel title="Deleted departments">
-                <div className="space-y-2">
-                  {deletedDepartments.length === 0 ? (
-                    <p className="text-sm text-slate-400">No deleted departments.</p>
-                  ) : (
-                    deletedDepartments.map((department) => {
-                      const id = toId(department)
-                      return (
-                        <div key={`deleted-department-${id}`} className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-700 bg-slate-900/70 px-3 py-2">
-                          <span className="text-sm">{text(department.name || department.departmentName)} ({text(department.code || department.departmentCode)})</span>
-                          <SmallButton kind="success" onClick={() => void restoreDepartment(id)}>Restore</SmallButton>
-                        </div>
-                      )
-                    })
-                  )}
-                </div>
-              </Panel>
-            </div>
+            <DepartmentsSection
+              selectedSchoolId={selectedSchoolId}
+              setSelectedSchoolId={setSelectedSchoolId}
+              schools={schools}
+              newDepartment={newDepartment}
+              setNewDepartment={setNewDepartment}
+              onCreateDepartment={() => void onCreateDepartment()}
+              departments={departments}
+              editDepartmentId={editDepartmentId}
+              editDepartmentData={editDepartmentData}
+              setEditDepartmentData={setEditDepartmentData}
+              startEditDepartment={startEditDepartment}
+              saveDepartment={(id) => void saveDepartment(id)}
+              setEditDepartmentId={setEditDepartmentId}
+              removeDepartment={(id) => void removeDepartment(id)}
+              deletedDepartments={deletedDepartments}
+              restoreDepartment={(id) => void restoreDepartment(id)}
+            />
           ) : null}
 
           {section === 'programs' ? (
-            <div className="space-y-5">
-              <Panel title="Create and manage programs">
-                <div className="grid gap-3 md:grid-cols-2">
-                  <Select value={selectedSchoolId} onChange={setSelectedSchoolId} options={schools.map((s) => ({ value: toId(s), label: text(s.name || s.schoolName) }))} placeholder="Select school" />
-                  <Select value={selectedDepartmentId} onChange={setSelectedDepartmentId} options={departments.map((d) => ({ value: toId(d), label: text(d.name || d.departmentName) }))} placeholder="Select department" />
-                  <Input value={newProgram.name} onChange={(v) => setNewProgram((s) => ({ ...s, name: v }))} placeholder="Program name" />
-                  <Input value={newProgram.code} onChange={(v) => setNewProgram((s) => ({ ...s, code: v }))} placeholder="Program code" />
-                </div>
-                <ActionButton onClick={() => void onCreateProgram()}>Create program</ActionButton>
-              </Panel>
-
-              <Panel title="Programs">
-                <div className="space-y-2">
-                  {programs.length === 0 ? (
-                    <p className="text-sm text-slate-400">No programs for selected school.</p>
-                  ) : (
-                    programs.map((program) => {
-                      const id = toId(program)
-                      const editing = editProgramId === id
-                      return (
-                        <div key={`program-${id}`} className="rounded-lg border border-slate-700 bg-slate-900/70 px-3 py-2">
-                          {editing ? (
-                            <div className="grid gap-2 md:grid-cols-[1fr_220px_auto_auto]">
-                              <Input compact value={editProgramData.name} onChange={(v) => setEditProgramData((s) => ({ ...s, name: v }))} placeholder="Program name" />
-                              <Input compact value={editProgramData.code} onChange={(v) => setEditProgramData((s) => ({ ...s, code: v }))} placeholder="Code" />
-                              <SmallButton kind="primary" onClick={() => void saveProgram(id)}>Save</SmallButton>
-                              <SmallButton kind="ghost" onClick={() => setEditProgramId('')}>Cancel</SmallButton>
-                            </div>
-                          ) : (
-                            <div className="flex flex-wrap items-center justify-between gap-2">
-                              <span className="text-sm font-medium">{text(program.name || program.programName)} ({text(program.code || program.programCode)})</span>
-                              <div className="flex gap-2">
-                                <SmallButton kind="secondary" onClick={() => startEditProgram(program)}>Edit</SmallButton>
-                                <SmallButton kind="danger" onClick={() => void removeProgram(id)}>Delete</SmallButton>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      )
-                    })
-                  )}
-                </div>
-              </Panel>
-
-              <Panel title="Map courses to program">
-                <div className="grid gap-3 md:grid-cols-4">
-                  <Select value={selectedProgramId} onChange={setSelectedProgramId} options={allPrograms.map((p) => ({ value: toId(p), label: `${text(p.name || p.programName)} (${text(p.code || p.programCode)})` }))} placeholder="Select program" />
-                  <Select value={programMapForm.courseId} onChange={(v) => setProgramMapForm((s) => ({ ...s, courseId: v }))} options={allCourses.map((c) => ({ value: toId(c), label: `${text(c.title || c.courseTitle)} (${text(c.code || c.courseCode)})` }))} placeholder="Select course" />
-                  <Select value={programMapForm.courseType} onChange={(v) => setProgramMapForm((s) => ({ ...s, courseType: v }))} options={['CORE', 'ELECTIVE']} />
-                  <Input value={String(programMapForm.yearOfStudy)} onChange={(v) => setProgramMapForm((s) => ({ ...s, yearOfStudy: Number(v || 1) }))} placeholder="Year" />
-                </div>
-                <ActionButton onClick={() => void mapCourseToProgram()}>Map course</ActionButton>
-
-                <div className="mt-3 space-y-2">
-                  {programCourses.length === 0 ? (
-                    <p className="text-sm text-slate-400">No mapped courses for selected program.</p>
-                  ) : (
-                    programCourses.map((c) => {
-                      const id = toId(c)
-                      return (
-                        <div key={`map-${id}`} className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-700 bg-slate-900/70 px-3 py-2 text-sm">
-                          <span>{text(c.courseTitle || c.title)} ({text(c.courseCode || c.code)}) • {text(c.courseType)} • Year {text(c.yearOfStudy)}</span>
-                          <SmallButton kind="danger" onClick={() => void unmapCourse(id)}>Remove</SmallButton>
-                        </div>
-                      )
-                    })
-                  )}
-                </div>
-              </Panel>
-            </div>
+            <ProgramsSection
+              selectedSchoolId={selectedSchoolId}
+              setSelectedSchoolId={setSelectedSchoolId}
+              schools={schools}
+              selectedDepartmentId={selectedDepartmentId}
+              setSelectedDepartmentId={setSelectedDepartmentId}
+              departments={departments}
+              newProgram={newProgram}
+              setNewProgram={setNewProgram}
+              onCreateProgram={() => void onCreateProgram()}
+              programs={programs}
+              editProgramId={editProgramId}
+              editProgramData={editProgramData}
+              setEditProgramData={setEditProgramData}
+              startEditProgram={startEditProgram}
+              saveProgram={(id) => void saveProgram(id)}
+              setEditProgramId={setEditProgramId}
+              removeProgram={(id) => void removeProgram(id)}
+              selectedProgramId={selectedProgramId}
+              setSelectedProgramId={setSelectedProgramId}
+              allPrograms={allPrograms}
+              allCourses={allCourses}
+              programMapForm={programMapForm}
+              setProgramMapForm={setProgramMapForm}
+              mapCourseToProgram={() => void mapCourseToProgram()}
+              programCourses={programCourses}
+              unmapCourse={(id) => void unmapCourse(id)}
+            />
           ) : null}
 
           {section === 'courses' ? (
-            <div className="space-y-5">
-              <Panel title="Create and manage courses">
-                <div className="grid gap-3 md:grid-cols-2">
-                  <Select value={selectedSchoolId} onChange={setSelectedSchoolId} options={schools.map((s) => ({ value: toId(s), label: text(s.name || s.schoolName) }))} placeholder="Select school" />
-                  <Select value={selectedDepartmentId} onChange={setSelectedDepartmentId} options={departments.map((d) => ({ value: toId(d), label: text(d.name || d.departmentName) }))} placeholder="Select department" />
-                  <Input value={newCourse.title} onChange={(v) => setNewCourse((s) => ({ ...s, title: v }))} placeholder="Course title" />
-                  <Input value={newCourse.code} onChange={(v) => setNewCourse((s) => ({ ...s, code: v }))} placeholder="Course code" />
-                  <Input value={String(newCourse.creditUnits)} onChange={(v) => setNewCourse((s) => ({ ...s, creditUnits: Number(v || 0) }))} placeholder="Credit units" />
-                </div>
-                <ActionButton onClick={() => void onCreateCourse()}>Create course</ActionButton>
-              </Panel>
-
-              <Panel title="Course catalog">
-                <Input value={courseQuery} onChange={setCourseQuery} placeholder="Search by title or code" />
-                <div className="mt-3 space-y-2">
-                  {filteredCourses.length === 0 ? (
-                    <p className="text-sm text-slate-400">No courses found.</p>
-                  ) : (
-                    filteredCourses.map((course) => {
-                      const id = toId(course)
-                      const editing = editCourseId === id
-                      return (
-                        <div key={`course-${id}`} className="rounded-lg border border-slate-700 bg-slate-900/70 px-3 py-2">
-                          {editing ? (
-                            <div className="grid gap-2 md:grid-cols-[1fr_220px_auto_auto]">
-                              <Input compact value={editCourseData.title} onChange={(v) => setEditCourseData((s) => ({ ...s, title: v }))} placeholder="Course title" />
-                              <Input compact value={String(editCourseData.creditUnits)} onChange={(v) => setEditCourseData((s) => ({ ...s, creditUnits: Number(v || 0) }))} placeholder="Credit units" />
-                              <SmallButton kind="primary" onClick={() => void saveCourse(id)}>Save</SmallButton>
-                              <SmallButton kind="ghost" onClick={() => setEditCourseId('')}>Cancel</SmallButton>
-                            </div>
-                          ) : (
-                            <div className="flex flex-wrap items-center justify-between gap-2">
-                              <span className="text-sm font-medium">{text(course.title || course.courseTitle)} ({text(course.code || course.courseCode)}) • {text(course.creditUnits)} credits</span>
-                              <div className="flex gap-2">
-                                <SmallButton kind="secondary" onClick={() => startEditCourse(course)}>Edit</SmallButton>
-                                <SmallButton kind="danger" onClick={() => void removeCourse(id)}>Delete</SmallButton>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      )
-                    })
-                  )}
-                </div>
-              </Panel>
-            </div>
+            <CoursesSection
+              selectedSchoolId={selectedSchoolId}
+              setSelectedSchoolId={setSelectedSchoolId}
+              schools={schools}
+              selectedDepartmentId={selectedDepartmentId}
+              setSelectedDepartmentId={setSelectedDepartmentId}
+              departments={departments}
+              newCourse={newCourse}
+              setNewCourse={setNewCourse}
+              onCreateCourse={() => void onCreateCourse()}
+              courseQuery={courseQuery}
+              setCourseQuery={setCourseQuery}
+              filteredCourses={filteredCourses}
+              editCourseId={editCourseId}
+              editCourseData={editCourseData}
+              setEditCourseData={setEditCourseData}
+              startEditCourse={startEditCourse}
+              saveCourse={(id) => void saveCourse(id)}
+              setEditCourseId={setEditCourseId}
+              removeCourse={(id) => void removeCourse(id)}
+            />
           ) : null}
 
           {section === 'cycle' ? (
-            <div className="space-y-5">
-              <div className="grid gap-3 md:grid-cols-3">
-                <Metric label="Academic Years" value={years.length} />
-                <Metric label="Active Year" value={summary.activeAcademicYear} />
-                <Metric label="Active Semester" value={summary.activeSemester} />
-              </div>
-
-              <Panel title="Academic years">
-                <div className="grid gap-3 md:grid-cols-[1fr_auto]">
-                  <Input value={newYearName} onChange={setNewYearName} placeholder="e.g., 2026-2027" />
-                  <ActionButton onClick={() => void addAcademicYear()}>Create year</ActionButton>
-                </div>
-                <div className="mt-3 space-y-2">
-                  {years.length === 0 ? (
-                    <p className="text-sm text-slate-400">No academic years configured.</p>
-                  ) : (
-                    years.map((year) => {
-                      const id = toId(year)
-                      return (
-                        <div key={`year-${id}`} className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-700 bg-slate-900/70 px-3 py-2">
-                          <div className="text-sm">
-                            <span className="font-medium">{text(year.name)}</span>
-                            {year.active ? <span className="ml-2 rounded-full bg-emerald-500/20 px-2 py-0.5 text-xs text-emerald-200">Active</span> : null}
-                          </div>
-                          <div className="flex gap-2">
-                            <SmallButton kind="secondary" onClick={() => setSelectedYearId(id)}>Open</SmallButton>
-                            {!year.active ? <SmallButton kind="primary" onClick={() => void setActiveYear(id)}>Activate</SmallButton> : null}
-                          </div>
-                        </div>
-                      )
-                    })
-                  )}
-                </div>
-              </Panel>
-
-              <Panel title="Semesters">
-                <div className="grid gap-3 md:grid-cols-[1fr_180px_auto]">
-                  <Select value={selectedYearId} onChange={setSelectedYearId} options={years.map((y) => ({ value: toId(y), label: text(y.name) }))} placeholder="Select academic year" />
-                  <Input value={String(newSemesterNo)} onChange={(v) => setNewSemesterNo(Number(v || 1))} placeholder="Semester number" />
-                  <ActionButton onClick={() => void addSemester()}>Create semester</ActionButton>
-                </div>
-
-                <div className="mt-3 space-y-2">
-                  {semesters.length === 0 ? (
-                    <p className="text-sm text-slate-400">No semesters for selected year.</p>
-                  ) : (
-                    semesters.map((semester) => {
-                      const id = toId(semester)
-                      return (
-                        <div key={`semester-${id}`} className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-700 bg-slate-900/70 px-3 py-2">
-                          <div className="text-sm">
-                            <span className="font-medium">{text(semester.name)}{semester.number ? ` (No. ${semester.number})` : ''}</span>
-                            {semester.active ? <span className="ml-2 rounded-full bg-emerald-500/20 px-2 py-0.5 text-xs text-emerald-200">Active</span> : null}
-                          </div>
-                          {!semester.active ? <SmallButton kind="primary" onClick={() => void setActiveSemester(id)}>Activate</SmallButton> : null}
-                        </div>
-                      )
-                    })
-                  )}
-                </div>
-              </Panel>
-            </div>
+            <CycleSection
+              years={years}
+              summary={summary}
+              newYearName={newYearName}
+              setNewYearName={setNewYearName}
+              addAcademicYear={() => void addAcademicYear()}
+              selectedYearId={selectedYearId}
+              setSelectedYearId={setSelectedYearId}
+              newSemesterNo={newSemesterNo}
+              setNewSemesterNo={setNewSemesterNo}
+              addSemester={() => void addSemester()}
+              setActiveYear={(id) => void setActiveYear(id)}
+              semesters={semesters}
+              setActiveSemester={(id) => void setActiveSemester(id)}
+            />
           ) : null}
         </section>
       </div>
