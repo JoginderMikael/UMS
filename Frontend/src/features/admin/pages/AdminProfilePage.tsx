@@ -1,5 +1,18 @@
+import AdminFeatureSection from '../components/AdminFeatureSection'
+
 function AdminProfilePage() {
-  return <div className="p-6">Admin Profile Page (migration placeholder)</div>
+  return (
+    <AdminFeatureSection
+      title="Admin Profile"
+      description="Manage administrator identity, permissions context, and security preferences in one place."
+      highlights={[
+        'Profile and contact details',
+        'Role and access visibility',
+        'Security preferences and session controls',
+        'Activity and audit-oriented context',
+      ]}
+    />
+  )
 }
 
 export default AdminProfilePage

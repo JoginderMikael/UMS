@@ -62,10 +62,14 @@ import {
   UsersSection,
 } from '../components/dashboard/sections'
 
-function AdminDashboardPage() {
+type AdminDashboardPageProps = {
+  initialSection?: Section
+}
+
+function AdminDashboardPage({ initialSection = 'overview' }: AdminDashboardPageProps) {
   const token = useMemo(() => loadToken(), [])
 
-  const [section, setSection] = useState<Section>('overview')
+  const [section, setSection] = useState<Section>(initialSection)
   const [status, setStatus] = useState<Status | null>(null)
   const [busy, setBusy] = useState(false)
 
@@ -253,6 +257,10 @@ function AdminDashboardPage() {
       setProgramCourses(await fetchProgramCourses(token, selectedProgramId))
     })
   }, [token, selectedProgramId])
+
+  useEffect(() => {
+    setSection(initialSection)
+  }, [initialSection])
 
   async function refreshAll(): Promise<void> {
     if (!token) return
@@ -611,72 +619,65 @@ function AdminDashboardPage() {
   const selectedNav = navItems.find((item) => item.key === section) || navItems[0]
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-slate-950 px-4 py-8 text-slate-100 md:px-8 md:py-10">
-      <div className="pointer-events-none absolute -left-24 top-4 h-72 w-72 rounded-full bg-violet-500/20 blur-3xl" />
-      <div className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-cyan-500/20 blur-3xl" />
+    <section className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-5 shadow-2xl shadow-black/20 backdrop-blur-xl md:p-6">
+      <div className="pointer-events-none absolute -right-20 top-0 h-56 w-56 rounded-full bg-violet-500/20 blur-3xl" />
+      <div className="pointer-events-none absolute -left-14 bottom-0 h-48 w-48 rounded-full bg-cyan-500/20 blur-3xl" />
 
-      <div className="relative mx-auto grid max-w-7xl gap-6 lg:grid-cols-[290px_1fr]">
-        <aside className="rounded-3xl border border-white/10 bg-white/5 p-4 shadow-2xl shadow-black/20 backdrop-blur-xl">
-          <p className="inline-flex rounded-full border border-violet-300/30 bg-violet-400/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-violet-100">Admin Portal</p>
-          <h1 className="mt-4 text-2xl font-black tracking-tight">UMS Control Center</h1>
-          <p className="mt-2 text-sm text-slate-300">Modernized admin experience with expanded legacy functionality.</p>
-
-          <nav className="mt-6 space-y-2">
-            {navItems.map((item) => (
-              <button
-                key={item.key}
-                type="button"
-                onClick={() => setSection(item.key)}
-                className={`w-full rounded-xl px-3 py-2 text-left text-sm transition ${
-                  section === item.key
-                    ? 'bg-violet-500/25 text-violet-100 ring-1 ring-violet-300/40'
-                    : 'bg-slate-900/65 text-slate-200 hover:bg-slate-800/75'
-                }`}
-              >
-                <span className="mr-2">{item.icon}</span>
-                {item.label}
-              </button>
-            ))}
-          </nav>
-
+      <div className="relative mb-5 flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <p className="text-xs uppercase tracking-[0.15em] text-slate-400">Dashboard workspace</p>
+          <h2 className="text-3xl font-black tracking-tight">{selectedNav.label}</h2>
+          <p className="mt-1 text-sm text-slate-300">{selectedNav.subtitle}</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => token && void run(async () => loadSummary(token))}
+            className="rounded-xl border border-violet-300/30 bg-violet-400/10 px-4 py-2 text-sm font-semibold text-violet-100 transition hover:bg-violet-400/20"
+          >
+            Refresh summary
+          </button>
           <button
             type="button"
             onClick={() => token && void run(async () => refreshAll())}
-            className="mt-6 w-full rounded-xl bg-linear-to-r from-violet-600 to-indigo-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:brightness-110"
+            className="rounded-xl bg-linear-to-r from-violet-600 to-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:brightness-110"
           >
             {busy ? 'Refreshing...' : 'Sync all data'}
           </button>
-        </aside>
+        </div>
+      </div>
 
-        <section className="rounded-3xl border border-white/10 bg-white/6 p-5 shadow-2xl shadow-black/20 backdrop-blur-xl md:p-6">
-          <div className="mb-5 flex flex-wrap items-start justify-between gap-3">
-            <div>
-              <p className="text-xs uppercase tracking-[0.15em] text-slate-400">Active module</p>
-              <h2 className="text-3xl font-black tracking-tight">{selectedNav.label}</h2>
-              <p className="mt-1 text-sm text-slate-300">{selectedNav.subtitle}</p>
-            </div>
-            <button
-              type="button"
-              onClick={() => token && void run(async () => loadSummary(token))}
-              className="rounded-xl border border-violet-300/30 bg-violet-400/10 px-4 py-2 text-sm font-semibold text-violet-100 transition hover:bg-violet-400/20"
-            >
-              Refresh summary
-            </button>
-          </div>
+      <div className="relative mb-5 flex flex-wrap gap-2">
+        {navItems.map((item) => (
+          <button
+            key={item.key}
+            type="button"
+            onClick={() => setSection(item.key)}
+            className={`rounded-xl px-3 py-2 text-sm transition ${
+              section === item.key
+                ? 'bg-violet-500/25 text-violet-100 ring-1 ring-violet-300/40'
+                : 'bg-slate-900/65 text-slate-200 hover:bg-slate-800/75'
+            }`}
+          >
+            <span className="mr-2">{item.icon}</span>
+            {item.label}
+          </button>
+        ))}
+      </div>
 
-          {status ? (
-            <div
-              className={`mb-4 rounded-xl border px-3 py-2 text-sm ${
-                status.kind === 'success'
-                  ? 'border-emerald-400/40 bg-emerald-500/10 text-emerald-200'
-                  : status.kind === 'error'
-                    ? 'border-rose-400/40 bg-rose-500/10 text-rose-200'
-                    : 'border-slate-600 bg-slate-800/70 text-slate-200'
-              }`}
-            >
-              {status.text}
-            </div>
-          ) : null}
+      {status ? (
+        <div
+          className={`relative mb-4 rounded-xl border px-3 py-2 text-sm ${
+            status.kind === 'success'
+              ? 'border-emerald-400/40 bg-emerald-500/10 text-emerald-200'
+              : status.kind === 'error'
+                ? 'border-rose-400/40 bg-rose-500/10 text-rose-200'
+                : 'border-slate-600 bg-slate-800/70 text-slate-200'
+          }`}
+        >
+          {status.text}
+        </div>
+      ) : null}
 
           {section === 'overview' ? <OverviewSection summary={summary} setSection={setSection} /> : null}
 
@@ -817,9 +818,7 @@ function AdminDashboardPage() {
               setActiveSemester={(id) => void setActiveSemester(id)}
             />
           ) : null}
-        </section>
-      </div>
-    </main>
+    </section>
   )
 }
 

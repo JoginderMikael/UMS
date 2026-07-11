@@ -1,6 +1,10 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { GuestOnlyRoute, ProtectedRoute } from './app/guards/routeGuards'
-import AdminDashboardPage from './features/admin/pages/AdminDashboardPage'
+import AdminLayout from './features/admin/components/AdminLayout'
+import {
+  AdminDashboardPage,
+  AdminProfilePage,
+} from './features/admin/pages'
 import AcademicsPage from './features/public/pages/AcademicsPage'
 import AdmissionsPage from './features/public/pages/AdmissionsPage'
 import CampusLifePage from './features/public/pages/CampusLifePage'
@@ -28,10 +32,20 @@ function App() {
         path="/admin"
         element={
           <ProtectedRoute allowedRoles={['ADMIN']}>
-            <AdminDashboardPage />
+            <AdminLayout />
           </ProtectedRoute>
         }
-      />
+      >
+        <Route index element={<AdminDashboardPage />} />
+        <Route path="academic-years" element={<AdminDashboardPage initialSection="cycle" />} />
+        <Route path="schools" element={<AdminDashboardPage initialSection="schools" />} />
+        <Route path="departments" element={<AdminDashboardPage initialSection="departments" />} />
+        <Route path="programs" element={<AdminDashboardPage initialSection="programs" />} />
+        <Route path="courses" element={<AdminDashboardPage initialSection="courses" />} />
+        <Route path="enrollments" element={<AdminDashboardPage initialSection="overview" />} />
+        <Route path="fees" element={<AdminDashboardPage initialSection="overview" />} />
+        <Route path="profile" element={<AdminProfilePage />} />
+      </Route>
       <Route
         path="/student"
         element={
