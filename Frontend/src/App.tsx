@@ -11,7 +11,13 @@ import CampusLifePage from './features/public/pages/CampusLifePage'
 import FacultyHomePage from './features/faculty/pages/FacultyHomePage'
 import HomePage from './features/public/pages/HomePage'
 import LoginPage from './features/public/pages/LoginPage'
+import StudentLayout from './features/student/components/StudentLayout'
+import CourseRegistrationPage from './features/student/pages/CourseRegistrationPage'
+import ExamRegistrationPage from './features/student/pages/ExamRegistrationPage'
+import FeePaymentPage from './features/student/pages/FeePaymentPage'
+import SemesterRegistrationPage from './features/student/pages/SemesterRegistrationPage'
 import StudentDashboardPage from './features/student/pages/StudentDashboardPage'
+import TranscriptPage from './features/student/pages/TranscriptPage'
 
 function App() {
   return (
@@ -50,10 +56,17 @@ function App() {
         path="/student"
         element={
           <ProtectedRoute allowedRoles={['STUDENT']}>
-            <StudentDashboardPage />
+            <StudentLayout />
           </ProtectedRoute>
         }
-      />
+      >
+        <Route index element={<StudentDashboardPage />} />
+        <Route path="course-registration" element={<CourseRegistrationPage />} />
+        <Route path="semester-registration" element={<SemesterRegistrationPage />} />
+        <Route path="exam-registration" element={<ExamRegistrationPage />} />
+        <Route path="fee-payment" element={<FeePaymentPage />} />
+        <Route path="transcript" element={<TranscriptPage />} />
+      </Route>
       <Route
         path="/faculty"
         element={
